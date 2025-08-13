@@ -10,9 +10,11 @@ class HealthEntry(forms.ModelForm):
         model = HealthEntry
         fields = ['date', 'symptoms', 'medications', 'mood', 'notes', 'attachment']
 
-    def clean_notes(self):
-        notes = self.cleaned_data.get('notes', '')
-        cleaned = bleach.clean(notes, tags=ALLOWED_TAGS, attributes = ALLOWED_ATTRIBUTES, strip=True)
-        return cleaned
+    def clean_mood(self):
+        mood = self.cleaned_data.get("mood", "")
+        if len (mood) >50:
+            raise forms.ValidationError("Mood too long")
+        return mood
+        
 
         

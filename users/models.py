@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from authentication.validators import validate_file_extension, validate_file_size
 
 class HealthEntry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -9,8 +10,7 @@ class HealthEntry(models.Model):
     medications = models.TextField(blank=True)
     mood = models.CharField(max_length=50, blank=True)
     notes = models.TextField(blank=True)
-    attachment = models.FileField(upload_to='health_attachments/', null=True, blank=True)
-
+    attachment = models.FileField(upload_to='health_attachments/', null=True, blank=True, validators= [validate_file_extension, validate_file_size])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
