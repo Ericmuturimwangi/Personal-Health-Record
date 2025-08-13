@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-f@%^z&d-+py6hhq@l2r9jd!3_-m&yk!zetd4@9-_toqz9*)sxg"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -43,12 +43,21 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    # csp middleware
+    "csp.middleware.CSPMiddleware",
 ]
 
 AXES_CACHE = config('AXES_CACHE')
 AXES_LOCK_OUT_AT_FAILURE = config('AXES_LOCK_OUT_AT_FAILURE')
 AXES_FAILURE_LIMIT = config('AXES_FAILURE_LIMIT')
 AXES_COOLOFF_TIME =config ('AXES_COOLOFF_TIME')
+
+CSP_DEFAULT_SRC = ("'self'",) #allow content only 
+
+CSP_IMG_SRC = ("'self'", "data:", "img src link")
+
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
 
 
 ROOT_URLCONF = "Health.urls"
