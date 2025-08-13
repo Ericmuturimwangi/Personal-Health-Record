@@ -16,5 +16,10 @@ class HealthEntry(models.Model):
 
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-date'] # ordering descendign by the date field by default
+
+    def __str__(self):
+        return f"{self.user}"- {self.date}
+
         
+
